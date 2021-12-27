@@ -1,0 +1,124 @@
+﻿@model IEnumerable<CoffeeStoreAspCore.ViewModels.Catalog.Bills.BillViewModel>
+@using CoffeeStoreAspCore.Data.Enums
+@{
+    ViewData["Title"] = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts
+{
+    <script>
+        setTimeout(function () {
+            $("#msgAlert").fadeOut('slow')
+        }, 2000);
+    </script>
+}
+<div class="container-fluid">
+
+
+
+    <div class="card mb-4 mt-4">
+        <div class="card-header"><i class="fas fa-table mr-1"></i>Invoices</div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        @if (ViewBag.mgs != null)
+                        {
+                            <div id="msgAlert" class=" alert alert-success  text-center" role="alert">
+                                @ViewBag.mgs
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-md-3"></div>
+
+                </div>
+                <table class="table table-bordered" id="" width="100%" cellspacing="0">
+                    <thead style=" background:#ffd800" >
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Days)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserName)
+                            </th>
+
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalQuantity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CodeText)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ActualTotalAmount)
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>ConfirmPayment</th>
+                            <th>Pending</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+
+                                <td>
+                                   @item.Days.ToString("dd/MM/yyyy")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalQuantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CodeText)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ActualTotalAmount)
+                                </td>
+                                <td>
+
+                                    @if (item.status == OrderStatus.Success)
+                                    {<strong style="color:#02b719">@item.status</strong>}
+                                    @if (item.status == OrderStatus.InProcess)
+                                    {<strong style="color:#ffd800">@item.status</strong>}
+                                    @if (item.status == OrderStatus.Canceled)
+                                    {<strong style="color:#ff0000">@item.status</strong>}
+
+                                </td>
+                                <td>
+                                    <a class="btn btn-success wow slideInRight" asp-action="ConfirmPayment" asp-route-id="@item.Id" asp-route-Status="@OrderStatus.Success"><i class="fas fa-check-circle"></i> Confirm </a>
+
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger wow slideInRight" asp-action="Pending" asp-route-id="@item.Id" asp-route-Status="@OrderStatus.Canceled">  <i class="fas fa-times-circle"></i> Cancel </a>
+
+                                </td>
+                                <td>
+                                    <a class="btn btn-info wow slideInRight" asp-action="Detail" asp-route-id="@item.Id">  <i class="fas fa-info-circle"></i> Detail </a>
+
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

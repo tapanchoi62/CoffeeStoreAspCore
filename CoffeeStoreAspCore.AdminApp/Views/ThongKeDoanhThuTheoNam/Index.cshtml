@@ -1,0 +1,82 @@
+﻿@model IEnumerable<CoffeeStoreAspCore.ViewModels.Catalog.Report.ReportYearView>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Year).ToList());
+    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Revenue).ToList());
+    ViewData["Title"] = "Bar Chart";
+
+    ViewData["Title"] = "Thongke";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div style="color:#f56e0a" class="container-fluid">
+ 
+    <div class="row" style="margin-top:50px">
+        <div class="col-xs-12"><canvas id="polar-chart" width="1500" height="700"></canvas></div>
+
+    </div>
+</div>
+
+
+
+<script>
+
+   
+
+
+        var ctx = document.getElementById("polar-chart").getContext('2d');
+        Chart.defaults.global.defaultFontFamily = 'Arial';
+    Chart.defaults.global.defaultFontSize = 16;
+    Chart.defaults.global.defaultFontColor = '#000000';
+   var myLine = new Chart(  ctx, {
+    type: 'doughnut',
+   data: {
+        labels: @Html.Raw(XLabels),
+        datasets: [{
+            label: "Revenue",
+           backgroundColor: ['#ffd800','#0f9d31',
+                    '#c214ae',
+                    '#0094ff',
+                    '#f56e0a',
+                ],
+             fill: false,
+            data:@Html.Raw(YValues)  ,
+        }],
+    },
+        options: {
+            
+                
+                onClick: arletBox,
+           
+        responsive: true,
+
+            legend: {
+                display: true
+            },
+        
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        },
+           }
+   });
+    function arletBox(event, array) {
+        var firstPoint = myLine.getElementAtEvent(event)[0];
+        var label = array[0];
+         var value = myLine.data.labels[firstPoint._index];
+        var url = '@Url.Action("Index", "ThongKeDoanhThuTheoThang")';
+        window.location.href = url + '?year=' + value   ;
+    }
+
+</script>
+
+
+

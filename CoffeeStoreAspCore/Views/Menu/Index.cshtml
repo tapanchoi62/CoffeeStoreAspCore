@@ -1,0 +1,311 @@
+﻿@model IEnumerable<CoffeeStoreAspCore.ViewModels.Catalog.DrinkViewModel>;
+@using CoffeeStoreAspCore.Data.Enums
+@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title> Document  </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Asset/trangchu/vendor/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Asset/Menu/vendor/font-awesome.css">
+    <link href="~/Asset/trangchu/css/1.css" rel="stylesheet" />
+    <link href="~/Asset/Menu/css.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700&amp;display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
+    
+
+</head>
+
+<body>
+    <script>
+         $(function(){
+  new WOW().init(); 
+});
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) { //thực hiện lệnh điều kiện Khi lăn chuột xuống dưới hơn 100px
+                    $('#lendau').fadeIn(); //Xuất hiện nút
+                } else {
+                    $('#lendau').fadeOut(); //Ngược lại thì ẩn nút
+                }
+            });
+            $('#lendau').click(function () {
+                $("html, body").animate({ scrollTop: 0 }, 600); //Animation giúp hoạt ảnh scroll ngược lên đầu trang sẽ mượt hơn
+                return false;
+            });
+
+            $("button").click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/cart/index',
+                    success: function (result) {
+                        $("#ajaxgiohang").html(result);
+                    }
+                })
+            })
+        });
+
+    </script>
+    <style type="text/css">
+        .card.card-body :hover {
+            transform: scale(1.1);
+        }
+    </style>
+    <header>
+        @await Html.PartialAsync("../Shared/_MenuLayout1.cshtml", ViewData)
+
+    </header>
+
+
+
+
+
+    <main class="container-fluid ">
+     
+            <div class="row" style="margin-top:100px">
+                <div class="col-xs-4 wow slideInLeft "data-wow-duration="1s">
+
+                    <div class="sidebar " id="catogory" style="position:fixed;border:1px solid gray;border-radius:10px;margin-top:40px; padding:50px;width:380px;margin-left:150px ">
+                        <h2 style="color:#ffd800"> Món nổi bật</h2>
+                        <ul style="font-size:22px">
+                            <li>
+                                <a href="#cafe"><i class="fa fa-coffee" aria-hidden="true"></i><i> Cà phê</i> </a>
+                                <a></a>
+                            </li>
+                            <li>
+                                <a href="#tra"><i class="fa fa-beer" aria-hidden="true"></i><i> Trà và Macchiato</i></a>
+                            </li>
+                            <li>
+                                <a href="#dasay"><i class="fa fa-glass" aria-hidden="true"></i><i> Thức uống đá say</i> </a>
+                            </li>
+                            <li>
+                                <a href="#traicay"><i class="fa fa-apple" aria-hidden="true"></i><i> Thức uống trái cây</i> </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="col-xs-6  " style="margin-top:60px; text-decoration:none">
+
+                    <div class="row" id="cafe">
+                        <h2 style="">
+                            Cà phê <i class="fa fa-mug-hot"></i>
+                            <hr />
+
+                        </h2>
+
+
+                     </div>
+
+                        <div class="row " style="margin-bottom:60px">
+
+                            @foreach (var item in Model)
+                            {
+                                if (item.IdMenu == 4)
+                                {
+                                    <div class="col-xs-4 ">
+                                        <div class="card card-body" style="border:1px solid gray; border-radius:15px;">
+                                            <img class="card-img-top " src="https://localhost:5001/user-content/@item.DrinkImage.ImagePath" />
+                                            <div class="card-block">
+                                                <h4 class="card-title">@item.Name</h4>
+                                                <p class="card-text">Giá: @item.UnitPrice VND</p>
+                                                <hr>
+                                                <a asp-controller="cart" asp-action="buy" asp-route-id="@item.Id" class="btn btn-success " role="button">Mua ngay</a>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+
+
+                        </div>
+
+
+                      
+                        <div class="row" id="tra">
+                            <h2>
+                                Trà và Machiato
+                                <hr />
+                            </h2>
+
+
+                        </div>
+                        <div class="row " style="margin-bottom:60px">
+
+                            @foreach (var item in Model)
+                            {
+                                if (item.IdMenu == 3)
+                                {
+                                    <div class="col-xs-4">
+                                        <div class="card card-body" style="border:1px solid gray; border-radius:15px">
+                                            <img class="card-img-top" src="https://localhost:5001/user-content/@item.DrinkImage.ImagePath" />
+                                            <div class="card-block">
+                                                <h4 class="card-title">@item.Name</h4>
+                                                <p class="card-text">Giá: @item.UnitPrice VND</p>
+                                                <a onclick="show()" asp-controller="cart" asp-action="buy" asp-route-id="@item.Id" class="btn btn-success " role="button">Mua ngay</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+
+
+                        </div>
+                       
+                        <div class="row" id="dasay">
+                            <h2>
+
+                                Thức uống đá say
+                                <hr />
+                            </h2>
+
+                        </div>
+                        <div class="row " style="margin-bottom:60px">
+                            @foreach (var item in Model)
+                            {
+                                if (item.IdMenu == 2)
+                                {
+                                    <div class="col-xs-4">
+                                        <div class="card card-body" style="border:1px solid gray; border-radius:15px">
+                                            <img class="card-img-top" src="https://localhost:5001/user-content/@item.DrinkImage.ImagePath" />
+                                            <div class="card-block">
+                                                <h4 class="card-title">@item.Name</h4>
+                                                <p class="card-text">Giá: @item.UnitPrice  VND</p>
+                                                <a asp-controller="cart" asp-action="buy" asp-route-id="@item.Id" class="btn btn-success" role="button">Mua ngay</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                        </div>
+
+                        
+                        <div class="row" id="traicay">
+                            <h2>
+
+                                Thức uống trái cây
+                                <hr />
+                            </h2>
+
+                        </div>
+                        <div class="row ">
+                            @foreach (var item in Model)
+                            {
+
+                                if (item.IdMenu == 1)
+                                {
+                                    <div class="col-xs-4">
+                                        <div class="card card-body" style="border:1px solid gray; border-radius:15px">
+                                            <img class="card-img-top" src="https://localhost:5001/user-content/@item.DrinkImage.ImagePath" />
+                                            <div class="card-block">
+                                                <h4 class="card-title">@item.Name</h4>
+                                                <p class="card-text">Giá: @item.UnitPrice  VND</p>
+                                                <a asp-controller="cart" asp-action="buy" asp-route-id="@item.Id" class="btn btn-success" role="button">Mua ngay</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row ">
+
+                    <div class="lendau" id="lendau">
+                        <pre style="color: white;"> <i class=" fa fa-angle-double-up "> Top </i> </pre>
+                    </div>
+                </div>
+            </div>
+    </main>
+    <footer>
+        <div class="nenden">
+            <div class="container ">
+
+                <div class="row footer1 ">
+                    <div class="col-xs-2 wow flip">
+                        <img src="https://localhost:5001/user-content/HomeCoffee.png" alt="" class="img-thumbnail">
+                    </div>
+                    <div class="col-xs-3 wow fadeInUp">
+                        <h2>Địa chỉ:</h2>
+                        <p> <i class=" fa fa-map-marker">  Kí túc xá khu B, Đông Hòa, Dĩ An, Bình Dướng</i></p>
+                    </div>
+                    <div class="col-xs-3 wow fadeInUp">
+                        <h2> Liên hệ:</h2>
+
+                        <p>  <i class="fa fa-envelop"> Email: homecoffee@gmail.com</i></p>
+                        <p> <i class=" fa fa-phone"> Phone: 0326837276</i></p>
+                    </div>
+                    <div class="col-xs-3 text-center wow fadeInUp">
+                        <h2> Về chúng tôi:</h2>
+
+                        <p>  Điều khoản và điều kiện</p>
+                        <p> Chính sách bảo mật</p>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="row footer2">
+                    <div class="col-xs-3">
+
+                    </div>
+                    <div class="col-xs-6">
+                        <h6> <small>Copyright © 2019 Home Coffee. All rights reserved.</small></h6>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+    <script type="text/javascript" src="~/Asset/Menu/vendor/bootstrap.js"></script>
+
+    <script type="text/javascript" src="~/Asset/trangchu/css/js.js"></script>
+    @section Scripts {
+        <script type="text/javascript">
+            function ajaxTest() {
+                $("button").click(function () {
+                    $.ajax({
+                        type: "GET",
+                        url: '/cart/index', // <-- Where should this point?
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        error: function (status, errorThrown) {
+                            var err = "Status: " + status + " " + errorThrown;
+                            console.log(err);
+                        }
+                    }).done(function (data) {
+                        console.log(data.result);
+                    })
+                })
+
+            }
+        </script>
+    }
+</body>
+</html>

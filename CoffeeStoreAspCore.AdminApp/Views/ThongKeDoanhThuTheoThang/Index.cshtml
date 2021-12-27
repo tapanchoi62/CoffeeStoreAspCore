@@ -1,0 +1,128 @@
+﻿@model IEnumerable<CoffeeStoreAspCore.ViewModels.Catalog.Report.ReportMonthView>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Month).ToList());
+    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Revenue).ToList());
+    ViewData["Title"] = "Bar Chart";
+
+    ViewData["Title"] = "Thongke";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="float-right" style="margin-right:100px"><i class="glyphicon glyphicon-calendar fa fa-calendar"> </i> Year:  <input type="number" style="width:70px" id="textarea" value="@ViewBag.year" /></div>
+    <div class="row" style="margin-top:50px;padding-top:60px; ">
+        <div class="col-xs-12"><canvas id="polar-chart" width="1500" height="500"></canvas></div>
+
+    </div>
+</div>
+<script>
+    $('#textarea').keypress (function (e) {
+        if (event.keyCode == 13 || event.which == 13) {
+         var year = $(this).val();
+          var url = '@Url.Action("Index", "ThongKeDoanhThuTheoThang")';
+
+
+        window.location.href = url + '?year=' + year ;}
+
+});
+    /*$('#textarea').keypress(function(e){
+
+});*/
+
+   var ctx = document.getElementById("polar-chart").getContext('2d');
+       Chart.defaults.global.defaultFontFamily = 'Arial';
+    Chart.defaults.global.defaultFontSize = 16;
+    Chart.defaults.global.defaultFontColor = '#000000';
+    var gradientFill = ctx.createLinearGradient(500, 0, 100, 0);
+    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0.6)");
+    gradientFill.addColorStop(0.4, "#94d973");
+gradientFill.addColorStop(0.7, "#fad874");
+    gradientFill.addColorStop(1, "rgba(244, 144, 128, 0.6)");
+    var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+
+    gradientStroke.addColorStop(0, "#80b6f4");
+gradientStroke.addColorStop(0.5, "#94d973");
+gradientStroke.addColorStop(0.9, "#fad874");
+gradientStroke.addColorStop(1, "#f49080");
+ var chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: @Html.Raw(XLabels),
+        datasets: [{
+            label: "Revenue",
+            lineTension: 0.3,
+            borderColor:               gradientStroke,
+pointBorderColor:          gradientStroke,
+pointBackgroundColor:      gradientStroke,
+pointHoverBackgroundColor: gradientStroke,
+pointHoverBorderColor:     gradientStroke,
+
+          backgroundColor: gradientFill,
+
+
+            data:@Html.Raw(YValues)  ,
+            fill: true,
+        }],
+    },
+     options: {
+         
+      
+       onClick: arletBox,
+      
+         animation: {
+            animateScale: true,
+             animateRotate: true,
+            easing: "easeInOutBack"
+        },
+       
+    }
+ });
+      function arletBox(event, array) {
+        var firstPoint = chart.getElementAtEvent(event)[0];
+
+         var value = chart.data.labels[firstPoint._index];
+          year = $('#textarea').val();
+          var ngay;
+          switch (value)
+	{
+	case 1:
+	case 3:
+	case 5:
+	case 7:
+	case 8:
+	case 10:
+	case 12:
+		ngay = 31;
+		break;
+	case 4:
+	case 6:
+	case 9:
+	case 11:
+		ngay = 30;
+		break;
+	case 2:
+
+			ngay = 28;
+		break;
+	default:
+		ngay = 0;
+	}
+
+          var fromdate = year + "-" + value+"-1"
+
+          var todate = year + "-" + value + "-" + ngay;
+        var url = '@Url.Action("Index", "Thongke")';
+
+        window.location.href = url + '?fromdate=' + fromdate    + '&todate=' + todate;
+
+    }
+</script>
+
+
+

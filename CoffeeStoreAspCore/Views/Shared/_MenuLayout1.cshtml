@@ -1,0 +1,95 @@
+﻿<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="~/Asset/Menu/css.css" rel="stylesheet" />
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" asp-controller="home" asp-action="index"style="font-size:30px" ><i class="fa fa-coffee" aria-hidden="true"></i> Home Coffee</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div style="font-size:20px" class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a style="padding-left:100px" class="nav-link" asp-controller="home" asp-action="index">
+                    <i class="fa fa-home"></i>
+
+                    Trang chủ
+
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="gioithieu" asp-action="index">
+                    <i class="fa fa-reddit"></i>
+                    Giới thiệu
+                </a>
+            </li>
+          
+
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="menu" asp-action="index">
+                    <i class="fa fa-list"></i>
+                    Menu
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="feedback" asp-action="index">
+                    <i class="fa fa-group"></i>
+                    Cửa hàng - Liên hệ
+                </a>
+            </li>
+
+        </ul>
+        <ul class="navbar-nav wow bounce " style="    position: fixed;  right: 220px;">
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="cart" asp-action="index">
+                    <i class="fa fa-shopping-cart">
+
+                        <span class="badge badge-info">@ViewData["count"]</span>
+                    </i>
+                    Cart
+                    
+                </a>
+            </li>
+
+        </ul>
+        <ul style="position: fixed; right: 120px;">
+            @if (User.Identity.Name != null)
+            {
+                <li class="nav-item">   
+                    <div class="dropdown show">
+                        <a class="btn btn-secondary btn-lg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i>
+                        </a>
+
+                        <div style=" background-color:cornsilk;border-radius:10px; padding-right:10px; padding-left:5px; margin-right:20px" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          
+                            <a class="dropdown-item " style="border:1px solid gray ; border-radius:10px ; margin-bottom:5px;margin-top:5px"  asp-action="thongtindangnhap" asp-controller="home">Thông tin khách hàng</a>
+                            <a class="dropdown-item"style="border:1px solid gray; border-radius:10px ; margin-bottom:5px"  asp-action="thongtinbill" asp-controller="home">Order</a>
+                            <form asp-action="dangxuat" style="border:1px solid gray;border-radius:10px; margin-bottom:5px"  asp-controller="login" method="post">
+                                <input class="dropdown-item" type="submit" value="Đăng xuất">
+                            </form>
+                        </div>
+                    </div>
+                 
+                </li>
+
+
+
+            }
+            else
+            {   <li>
+                    <form>
+                        <button class="btn btn-outline-secondary btn-lg" asp-controller="login" asp-action="index" >
+                            <i class="fa fa-user-plus" ></i>
+                        </button>
+                    </form>
+                </li>
+    }
+</ul>
+
+    </div>
+</nav>

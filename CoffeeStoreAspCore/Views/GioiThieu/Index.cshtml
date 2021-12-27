@@ -1,0 +1,92 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+    <link rel="stylesheet" href="~/Asset/trangchu/vendor/bootstrap.css">
+
+    <link rel="stylesheet" href="~/Asset/trangchu/vendor/font-awesome.css">
+    <link rel="stylesheet" href="~/Asset/trangchu/css/1.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
+
+
+</head>
+<body>
+    <script>
+              $(function(){
+  new WOW().init(); 
+});
+    </script>
+    <header>
+        @await Html.PartialAsync("../Shared/_MenuLayout1.cshtml",ViewData)
+
+    </header>
+    <div class="container " style="margin-top: 150px">
+        <div class="row ">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2 style="font-family: cursive;color: brown;" class="wow fadeInUp farm_to_cup_title section_heading line_after_heading line_after_heading_section">Hành trình từ nông trại đến ly cà phê</h2>
+                <div class="farm_to_cup_content wow fadeInUp">
+                    Có bao giờ bạn tự hỏi, ly cà phê thơm ngát trên tay mình đã trải qua những chặng đường nào? Khi nhân viên phục vụ mang đến cho bạn một ly cà phê, đó chỉ là hành động cuối cùng của một hành trình dài và kỳ diệu: từ việc chọn vùng đất hợp thổ nhưỡng, sàng lọc giống, tới trồng cây, chăm bón và thu hái.<br><br>
+                    Từ những cửa hàng đầu tiên, chúng tôi đã bắt đầu hợp tác với Cầu Đất Farm để trồng cà phê theo tiêu chuẩn riêng. Vùng đất phủ sương nằm ở độ cao 1.650m so với mặt nước biển này là nơi tốt nhất để trồng giống cà phê Arabica ở Việt Nam. Chính “độ cao vàng” ấy đã cho ra hạt cà phê Arabica thơm nhẹ, chua thanh tuyệt hảo. <br><br>
+                    Tháng 1/2018, bộ phận Cà Phê của Cầu Đất Farm chính thức được sáp nhập vào đội ngũ The Coffee Home.
+                    Dải sơn nguyên này trở thành nơi chúng tôi gieo nên không chỉ những giống cà phê chọn lọc, mà cả một ước mơ lớn: đem cà phê Việt Nam chất lượng cao chinh phục tín đồ cà phê trên toàn thế giới.<br><br>
+                    Tại trang trại The Coffee Home, chúng tôi sát cánh làm việc với từng nông hộ, kiểm soát các tiêu chuẩn của quá trình chăm bón; tỉ mẩn trong các khâu sơ chế, rang, pha... để gửi đến khách hàng ly cà phê tốt nhất.<br><br>
+                    <img class="wow fadeInUp" src="//file.hstatic.net/1000075078/file/group_144_master.jpg" alt="hanh trinh cua hat ca phe the coffee house">
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="nenden">
+            <div class="container ">
+
+                <div class="row footer1 ">
+                    <div class="col-xs-2 wow flip">
+                        <img src="https://localhost:5001/user-content/HomeCoffee.png" alt="" class="img-thumbnail">
+                    </div>
+                    <div class="col-xs-3 wow fadeInUp">
+                        <h2>Địa chỉ:</h2>
+                        <p> <i class=" fa fa-map-marker">  Kí túc xá khu B, Đông Hòa, Dĩ An, Bình Dướng</i></p>
+                    </div>
+                    <div class="col-xs-3 wow fadeInUp">
+                        <h2> Liên hệ:</h2>
+
+                        <p>  <i class="fa fa-envelop"> Email: homecoffee@gmail.com</i></p>
+                        <p> <i class=" fa fa-phone"> Phone: 0326837276</i></p>
+                    </div>
+                    <div class="col-xs-3 text-center wow fadeInUp">
+                        <h2> Về chúng tôi:</h2>
+
+                        <p>  Điều khoản và điều kiện</p>
+                        <p> Chính sách bảo mật</p>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="row footer2">
+                    <div class="col-xs-3">
+
+                    </div>
+                    <div class="col-xs-6">
+                        <h6> <small>Copyright © 2019 Home Coffee. All rights reserved.</small></h6>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+
+</html>

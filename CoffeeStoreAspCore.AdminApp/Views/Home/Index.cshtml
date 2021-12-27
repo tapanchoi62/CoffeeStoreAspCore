@@ -1,0 +1,94 @@
+﻿
+
+@{
+
+    ViewData["Title"] = "Trang Chủ";
+}
+
+    <body >
+
+        <div>
+            <main>
+                <div class="container-fluid">
+                    <h1 class="mt-1"></h1>
+
+                    <div class="row text-center" style="font-size:15px">
+                        <div class="col-xl-3 col-md-6 wow slideInUp">
+                            <div class="card  text-warning ">
+                                <div class="card-body">
+                                    <img style="height:60px;width:60px" src="~/assets/img/600px-List-Icon.svg.png" />
+                                    <strong>Menu</strong> 
+                                </div>
+                                <div class="card-body bg-warning ">
+                                    <a class=" text-center text-white " style="font-size:20px" href="Menu">
+                                        <strong> @ViewBag.Menu</strong>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 wow slideInDown">
+                            <div class="card  text-info ">
+                                <div class="card-body">
+                                    <img style="height:60px;width:60px" src="~/assets/img/OIP (1).jpg" />
+                                    <strong>Drink</strong>
+                                    
+                                </div>
+
+                                <div class="card-body bg-info">
+                                    <a class=" text-white text-center" style="font-size:20px" href="Drink">  <strong>   @ViewBag.Drink </strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 wow slideInDown">
+                            <div class="card  text-danger ">
+                                <div class="card-body">
+                                    <img class="wow shake" data-wow-iteration="3" style="height:60px;width:60px;float:right" src="~/assets/img/new-icon.png" />
+
+                                    <img style="height:60px;width:60px" src="~/assets/img/OIP.jpg" />
+                                    <strong> New Order</strong>
+                                   
+                                </div>
+                               
+                                <div class="card-body bg-danger">
+
+                                    <a class="text-center text-white" style="font-size:20px" href="Order">
+                                        <strong> @ViewBag.Order</strong>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 wow slideInRight">
+                            <div class="card  text-success">
+                                <div class="card-body">
+                                    <img style="height:60px;width:60px" src="~/assets/img/feedback-icon-round-433ddc5553e50400e15f665622f12f94.png" />
+
+                                    <strong>FeadBack</strong>
+                                </div>
+                                <div class="card-body bg-success">
+                                    <a class="text-center text-white " style="font-size:20px" href="Contact">
+                                        <strong>@ViewBag.Contact</strong>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area mr-1"></i>
+                        Area Chart Example
+                    </div>
+                    <div class="card-body"><canvas id="myBarChart" width="100%" height="35"></canvas></div>
+                </div>
+            </div>
+
+        </div>
+
+            <script src="assets/demo/chart-bar-demo.js"></script>
+
+</body>

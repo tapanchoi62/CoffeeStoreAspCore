@@ -1,0 +1,170 @@
+﻿@model CoffeeStoreAspCore.ViewModels.Catalog.Bills.BillViewModel
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="card mb-4" style="margin-top:20px;">
+        <div class="card-header"><i class="fas fa-table mr-1"></i>Invoices Detail</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xs-12">
+                   
+                  
+                    <div style="margin-left:20px;border:4px solid grays; border-radius:10px; padding:10px; background:#ffffff" class="row">
+
+                        <div class="col-xs-12">
+                            <div class="panel-body wow slideInRight" >
+                                <strong>• Order Id :</strong>
+                                @Html.DisplayFor(model => model.Id) <br> 
+                                <strong>• Order Date :</strong>
+                              @Model.Days.ToString("dd-MM-yyyy")<br>
+                                <strong>• Customer Name: </strong>
+                                @Html.DisplayFor(model => model.UserName)<br>
+
+                                <strong>• Address:</strong>
+                                @Html.DisplayFor(model => model.Address)<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h1></h1>
+                            <h2></h2>
+                        </div>
+                        <div class="panel-body ">
+                            <div class="table-responsive">
+                                <table class="table table-bordered wow fadeInUp">
+                                    <thead  style=" background:#ffd800">
+                                        <tr>
+                                            <td><strong>Item Name</strong></td>
+                                            <td class="text-center"><strong>Item Price</strong></td>
+                                            <td class="text-center"><strong>Item Quantity</strong></td>
+                                            <td class="text-right"><strong>Total</strong></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.BillDetails)
+                                        {
+                                            <tr  style="background:#ffffff">
+                                                <td> @Html.DisplayFor(modelItem => item.NameDrink)</td>
+                                                <td class="text-center">@Html.DisplayFor(modelItem => item.Unitprice)</td>
+                                                <td class="text-center">@Html.DisplayFor(modelItem => item.Quantity)</td>
+                                                <td class="text-right">
+
+                                                    @{ 
+
+
+                                                        decimal tinhTotal(int x, decimal y )
+                                                        {
+                                                        
+                                                            return x* y;
+                                                        }
+
+                                                    }
+                                                    @{ 
+                                                        
+                                                        decimal total=tinhTotal(item.Quantity, item.Unitprice);
+                                                        <Span> @total.00 VND</Span>
+                                                      }
+                                                </td>
+                                            </tr>
+                                        }
+                                        <tr style="background:#ffffff">
+                                            <td class="highrow"></td>
+                                            <td class="highrow"></td>
+                                            <td class="highrow text-center" style="background:#ffffff"><strong>TotalAmount</strong></td>
+                                            <td class="highrow text-right" style="background:#ffffff" >
+                                            @Html.DisplayFor(model => model.CalculatedTotalAmount) VND</td>
+                                        </tr>
+
+                                        <tr style="background:#ffffff">
+                                            <td class="emptyrow"></td>
+                                            <td class="emptyrow"></td>
+                                            <td class="emptyrow text-center" style="background:#ffffff"><strong>Discount</strong></td>
+                                            <td class="emptyrow text-right" style="background:#ffffff">
+                                                @{ 
+                                                  
+                                                  decimal?  tinhDiscount()
+                                                    {
+                                                        
+                                                        var discount= ( Model.DiscountAmount== null?0:Model.DiscountAmount) + 
+                                                            Model.CalculatedTotalAmount * (Model.DiscountPercent== null?0:Model.DiscountPercent )/100;
+                                                        return discount;
+
+                                                    }
+
+
+                                                }
+                                                @{ 
+                                                    var discount = tinhDiscount();
+                                                    {
+                                                        <span>@discount VND</span>
+                                                    }
+                                                }
+                                                
+                                            
+                                            </td>
+                                        </tr>
+                                  
+                                        <tr style="background:#ffffff">
+                                            <td class="emptyrow"></td>
+                                            <td class="emptyrow"></td>
+                                            <td class="emptyrow text-center"style="background:#ffffff"><strong>ActualTotalAmount</strong></td>
+                                            <td class="emptyrow text-right"style="background:#ffffff">@Html.DisplayFor(model => model.ActualTotalAmount) VND</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <style>
+                .height {
+                    min-height: 200px;
+                }
+
+                .icon {
+                    font-size: 47px;
+                    color: #5CB85C;
+                }
+
+                .iconbig {
+                    font-size: 77px;
+                    color: #5CB85C;
+                }
+
+                .table > tbody > tr > .emptyrow {
+                    border-top: none;
+                }
+
+                .table > thead > tr > .emptyrow {
+                    border-bottom: none;
+                }
+
+                .table > tbody > tr > .highrow {
+                    border-top: 3px solid;
+                }
+            </style>
+            <div style="margin-top:30px">
+                <a asp-action="Index" class="btn btn-primary"> <i class="fas fa-reply"></i>  Back to List  </a>||
+
+                <a asp-action="ExportExcel" class="btn btn-success " asp-route-billId = "@Model.Id" > <i class="fas fa-file-excel"></i>  ExportExcel  </a> 
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
